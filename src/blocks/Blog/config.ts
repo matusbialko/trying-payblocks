@@ -50,6 +50,22 @@ export const Blog: Block = {
   fields: [
     designVersionPreview(allBlogDesignVersions),
     {
+      name: 'heading',
+      type: 'text',
+      required: true,
+      admin: {
+        description: 'Heading for the blog section',
+      },
+    },
+    {
+      name: 'description',
+      type: 'text',
+      required: true,
+      admin: {
+        description: 'Description for the blog section',
+      },
+    },
+    {
       name: 'richText',
       type: 'richText',
       localized: true,

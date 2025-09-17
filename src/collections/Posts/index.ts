@@ -89,110 +89,50 @@ export const Posts: CollectionConfig = {
       required: true,
     },
     {
-      type: 'tabs',
-      tabs: [
+      name: 'summary',
+      type: 'textarea',
+      required: true,
+      admin: {
+        description: 'Brief summary of the blog post',
+      },
+    },
+    {
+      name: 'label',
+      type: 'text',
+      required: true,
+      admin: {
+        description: 'Category label for the post (e.g., "Web Design", "Development")',
+      },
+    },
+    {
+      name: 'image',
+      type: 'upload',
+      relationTo: 'media',
+      required: true,
+      admin: {
+        description: 'Featured image for the blog post',
+      },
+    },
+    {
+      name: 'tags',
+      type: 'array',
+      admin: {
+        description: 'Tags associated with the blog post',
+      },
+      fields: [
         {
-          fields: [
-            {
-              name: 'bannerImage',
-              type: 'upload',
-              relationTo: 'media',
-              admin: {
-                description: 'Banner image displayed at the top of the blog post',
-                condition: (data) => data?.designVersion === 'BLOG20',
-                position: 'sidebar',
-              },
-            },
-            {
-              name: 'content',
-              type: 'richText',
-              localized: true,
-              editor: lexicalEditor({
-                features: ({ rootFeatures }) => {
-                  return [
-                    ...rootFeatures,
-                    HeadingFeature({ enabledHeadingSizes: ['h1', 'h2', 'h3', 'h4'] }),
-                    BlocksFeature({ blocks: [Banner, Code, MediaBlock] }),
-                    FixedToolbarFeature(),
-                    InlineToolbarFeature(),
-                    HorizontalRuleFeature(),
-                    OrderedListFeature(),
-                    UnorderedListFeature(),
-                    BlockquoteFeature(),
-                    UploadFeature({
-                      collections: {
-                        media: {
-                          fields: [],
-                        },
-                      },
-                    }),
-                  ]
-                },
-              }),
-              label: false,
-              required: true,
-            },
-          ],
-          label: 'Content',
-        },
-        {
-          fields: [
-            {
-              name: 'relatedPosts',
-              type: 'relationship',
-              admin: {
-                position: 'sidebar',
-              },
-              filterOptions: ({ id }) => {
-                return {
-                  id: {
-                    not_in: [id],
-                  },
-                }
-              },
-              hasMany: true,
-              relationTo: 'posts',
-            },
-            {
-              name: 'categories',
-              type: 'relationship',
-              admin: {
-                position: 'sidebar',
-              },
-              hasMany: true,
-              relationTo: 'categories',
-            },
-          ],
-          label: 'Meta',
-        },
-        {
-          name: 'meta',
-          label: 'SEO',
-          fields: [
-            OverviewField({
-              titlePath: 'meta.title',
-              descriptionPath: 'meta.description',
-              imagePath: 'meta.image',
-            }),
-            MetaTitleField({
-              hasGenerateFn: true,
-            }),
-            MetaImageField({
-              relationTo: 'media',
-            }),
-
-            MetaDescriptionField({}),
-            PreviewField({
-              // if the `generateUrl` function is configured
-              hasGenerateFn: true,
-
-              // field paths to match the target field for data
-              titlePath: 'meta.title',
-              descriptionPath: 'meta.description',
-            }),
-          ],
+          name: 'tag',
+          type: 'text',
+          required: true,
         },
       ],
+    },
+    {
+      name: 'url',
+      type: 'text',
+      admin: {
+        description: 'External URL for the blog post (optional)',
+      },
     },
     designVersionPreview(allPostDesignVersions, {
       admin: {
