@@ -11,6 +11,11 @@ export const allBlogDesignVersions = [
     value: 'BLOG29',
     image: '/admin/previews/blog/blog29.jpeg',
   },
+  {
+    label: 'Blog 8 (Modern Card Layout)',
+    value: 'BLOG8',
+    image: '/admin/previews/blog/blog8.jpeg',
+  },
 ] as const
 
 export type BlogDesignVersion = (typeof allBlogDesignVersions)[number]

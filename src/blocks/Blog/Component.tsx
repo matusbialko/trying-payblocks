@@ -4,6 +4,7 @@ import { getPayload } from 'payload'
 
 import { allBlogDesignVersions } from './config'
 import { Blog29 } from './blog29'
+import { Blog8 } from './blog8'
 import { Post, Category } from '@/payload-types'
 import { PublicContextProps } from '@/utilities/publicContextProps'
 
@@ -33,6 +34,7 @@ export interface BlogBlockProps {
 
 const blog: BlogContent = {
   BLOG29: Blog29,
+  BLOG8: Blog8,
 }
 
 /**
