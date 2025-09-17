@@ -85,7 +85,7 @@ export const allFeatureDesignVersions = [
   // 'FEATURE71',
   { label: 'FEATURE72', value: 'FEATURE72', image: '/admin/previews/feature/feature72.jpeg' },
   // 'FEATURE73',
-  // 'FEATURE74',
+  { label: 'FEATURE74', value: 'FEATURE74', image: '/admin/previews/feature/feature74.jpeg' },
   // 'FEATURE75',
   // 'FEATURE76',
   // 'FEATURE77',
