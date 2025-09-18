@@ -121,6 +121,7 @@ export const allFeatureDesignVersions = [
   { label: 'FEATURE117', value: 'FEATURE117', image: '/admin/previews/feature/feature117.jpeg' },
   { label: 'FEATURE126', value: 'FEATURE126', image: '/admin/previews/feature/feature126.jpeg' },
   { label: 'FEATURE159', value: 'FEATURE159', image: '/admin/previews/feature/feature159.webp' },
+  { label: 'FEATURE239', value: 'FEATURE239', image: '/admin/previews/feature/feature239.webp' },
   { label: 'FEATURE250', value: 'FEATURE250', image: '/admin/previews/feature/feature250.webp' },
 ] as const
 
