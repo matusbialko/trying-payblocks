@@ -37,6 +37,11 @@ import { calculateReadTime } from './hooks/calculcateReadTime'
 
 export const allPostDesignVersions = [
   {
+    label: 'BLOG1',
+    value: 'BLOG1',
+    image: '/admin/previews/blog/blog1.jpeg',
+  },
+  {
     label: 'BLOG18',
     value: 'BLOG18',
     image: '/admin/previews/blog/blog18.jpeg',
@@ -87,6 +92,112 @@ export const Posts: CollectionConfig = {
       name: 'title',
       type: 'text',
       required: true,
+    },
+    {
+      type: 'tabs',
+      tabs: [
+        {
+          fields: [
+            {
+              name: 'bannerImage',
+              type: 'upload',
+              relationTo: 'media',
+              admin: {
+                description: 'Banner image displayed at the top of the blog post',
+                condition: (data) => data?.designVersion === 'BLOG20',
+                position: 'sidebar',
+              },
+            },
+            {
+              name: 'content',
+              type: 'richText',
+              localized: true,
+              editor: lexicalEditor({
+                features: ({ rootFeatures }) => {
+                  return [
+                    ...rootFeatures,
+                    HeadingFeature({ enabledHeadingSizes: ['h1', 'h2', 'h3', 'h4'] }),
+                    BlocksFeature({ blocks: [Banner, Code, MediaBlock] }),
+                    FixedToolbarFeature(),
+                    InlineToolbarFeature(),
+                    HorizontalRuleFeature(),
+                    OrderedListFeature(),
+                    UnorderedListFeature(),
+                    BlockquoteFeature(),
+                    UploadFeature({
+                      collections: {
+                        media: {
+                          fields: [],
+                        },
+                      },
+                    }),
+                  ]
+                },
+              }),
+              label: false,
+              required: true,
+            },
+          ],
+          label: 'Content',
+        },
+        {
+          fields: [
+            {
+              name: 'relatedPosts',
+              type: 'relationship',
+              admin: {
+                position: 'sidebar',
+              },
+              filterOptions: ({ id }) => {
+                return {
+                  id: {
+                    not_in: [id],
+                  },
+                }
+              },
+              hasMany: true,
+              relationTo: 'posts',
+            },
+            {
+              name: 'categories',
+              type: 'relationship',
+              admin: {
+                position: 'sidebar',
+              },
+              hasMany: true,
+              relationTo: 'categories',
+            },
+          ],
+          label: 'Meta',
+        },
+        {
+          name: 'meta',
+          label: 'SEO',
+          fields: [
+            OverviewField({
+              titlePath: 'meta.title',
+              descriptionPath: 'meta.description',
+              imagePath: 'meta.image',
+            }),
+            MetaTitleField({
+              hasGenerateFn: true,
+            }),
+            MetaImageField({
+              relationTo: 'media',
+            }),
+
+            MetaDescriptionField({}),
+            PreviewField({
+              // if the `generateUrl` function is configured
+              hasGenerateFn: true,
+
+              // field paths to match the target field for data
+              titlePath: 'meta.title',
+              descriptionPath: 'meta.description',
+            }),
+          ],
+        },
+      ],
     },
     {
       name: 'summary',

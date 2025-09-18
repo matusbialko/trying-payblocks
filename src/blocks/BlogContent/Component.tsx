@@ -1,5 +1,6 @@
 import { Post } from '@/payload-types'
 import { allPostDesignVersions } from '@/collections/Posts/index'
+import Blog1 from './blog1'
 import { Blog20 } from './blog20'
 import { Blog18 } from './blog18'
 import { PublicContextProps } from '@/utilities/publicContextProps'
@@ -14,6 +15,7 @@ type BlogContent<T extends string = string> = Required<
   Record<T, React.FC<any>>
 
 const blog: BlogContent = {
+  BLOG1: Blog1,
   BLOG18: Blog18,
   BLOG20: Blog20,
 }
