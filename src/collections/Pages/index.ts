@@ -41,6 +41,7 @@ import { CasestudiesBlock } from '@/blocks/Casestudies/config'
 import { TimelineBlock } from '@/blocks/Timeline/config'
 import { LoginBlock } from '@/blocks/Login/config'
 import { SignupBlock } from '@/blocks/Signup/config'
+import { BlogPost } from '@/blocks/BlogPost/config'
 
 export const Pages: CollectionConfig = {
   slug: 'pages',
@@ -127,6 +128,7 @@ export const Pages: CollectionConfig = {
                 TimelineBlock,
                 LoginBlock,
                 SignupBlock,
+                BlogPost,
               ],
               required: true,
             },
