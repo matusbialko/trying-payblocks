@@ -124,7 +124,7 @@ const Blog18: React.FC<Post & { publicContext: PublicContextProps }> = (props) =
         <div className="relative grid grid-cols-12 gap-6 lg:grid">
           <div className="col-span-12 lg:col-span-8">
             {content && (
-              <div className="prose max-w-none">
+              <div className="max-w-none">
                 <RichText
                   content={content}
                   publicContext={props.publicContext}

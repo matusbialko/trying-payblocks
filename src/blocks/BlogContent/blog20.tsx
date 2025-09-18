@@ -147,7 +147,7 @@ const Blog20: React.FC<Post & { publicContext: PublicContextProps }> = (props) =
             )}
 
             {content && (
-              <div className="prose max-w-none">
+              <div className="max-w-none">
                 <RichText content={content} publicContext={publicContext} withWrapper={false} />
               </div>
             )}

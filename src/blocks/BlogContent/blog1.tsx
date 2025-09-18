@@ -54,7 +54,7 @@ const Blog1: React.FC<Post & { publicContext: PublicContextProps }> = (props) =>
         </div>
       </div>
       <div className="container">
-        <div className="prose dark:prose-invert mx-auto max-w-3xl">
+        <div className="mx-auto max-w-3xl">
           {content && (
             <RichText content={content} publicContext={publicContext} withWrapper={false} />
           )}
