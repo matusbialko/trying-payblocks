@@ -7,6 +7,8 @@ import React from 'react'
 
 import type { Page as PageType, Post as PostType } from '@/payload-types'
 
+export const dynamic = 'force-dynamic'
+
 import { RenderBlocks } from '@/blocks/RenderBlocks'
 import { RenderHero } from '@/heros/RenderHero'
 import { generateMeta } from '@/utilities/generateMeta'

@@ -69,8 +69,10 @@ const googleAuthActive = !!(
   process.env.GOOGLE_LOGIN_CLIENT_ID && process.env.GOOGLE_LOGIN_CLIENT_SECRET
 )
 
+const disableAdmin = true // process.env.NODE_ENV === 'production' && process.env.PAYLOAD_READONLY === 'true'
+
 export default buildConfig({
-  admin: {
+  admin: disableAdmin ? false : {
     components: {
       beforeLogin: ['@/components/AdminDashboard/BeforeLogin'],
       afterLogin: googleAuthActive ? ['@/components/AdminDashboard/LoginButton'] : [],

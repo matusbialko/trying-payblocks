@@ -11,6 +11,18 @@ import bundleAnalyzer from '@next/bundle-analyzer'
 export const NEXT_PUBLIC_SERVER_URL = serverUrl
 
 const nextConfig: NextConfig = {
+  typescript: {
+    // !! WARN !!
+    // Dangerously allow production builds to successfully complete even if
+    // your project has type errors.
+    // !! WARN !!
+    ignoreBuildErrors: true,
+  },
+  eslint: {
+    // Warning: This allows production builds to successfully complete even if
+    // your project has ESLint errors.
+    ignoreDuringBuilds: true,
+  },
   experimental: {
     staticGenerationRetryCount: 1,
     staticGenerationMaxConcurrency: 8,

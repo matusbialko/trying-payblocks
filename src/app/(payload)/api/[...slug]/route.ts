@@ -3,6 +3,8 @@
 import config from '@payload-config'
 import { REST_DELETE, REST_GET, REST_OPTIONS, REST_PATCH, REST_POST } from '@payloadcms/next/routes'
 
+export const dynamic = 'force-dynamic'
+
 type ParamsPromise = {
   params: Promise<{
     slug: string[]

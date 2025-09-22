@@ -8,6 +8,8 @@ import localization, { locales } from '@/localization.config'
 
 const payloadToken = 'payload-token'
 
+export const dynamic = 'force-dynamic'
+
 export async function GET(
   req: Request & {
     cookies: {
