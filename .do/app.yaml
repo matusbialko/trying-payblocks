@@ -23,4 +23,4 @@ services:
         type: SECRET
       - key: NEXT_PUBLIC_SERVER_URL
         value: ${NEXT_PUBLIC_SERVER_URL}
-    build_command: ./build-no-db.sh
+    build_command: ./build.sh
