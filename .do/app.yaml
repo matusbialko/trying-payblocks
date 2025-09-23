@@ -1,26 +1,26 @@
 name: payblocks
 services:
-- name: web
-  source_dir: /
-  github:
-    repo: matusbialko/trying-payblocks
-    branch: main
-  run_command: pnpm start
-  environment_slug: node-js-20
-  instance_count: 1
-  instance_size_slug: basic-xxs
-  http_port: 3000
-  routes:
-  - path: /
-  envs:
-  - key: NODE_ENV
-    value: production
-  - key: PAYLOAD_SECRET
-    value: ${PAYLOAD_SECRET}
-    type: SECRET
-  - key: DATABASE_URI
-    value: ${DATABASE_URI}
-    type: SECRET
-  - key: NEXT_PUBLIC_SERVER_URL
-    value: ${NEXT_PUBLIC_SERVER_URL}
-  build_command: ./build.sh
+  - name: web
+    source_dir: /
+    github:
+      repo: matusbialko/trying-payblocks
+      branch: main
+    run_command: pnpm start
+    environment_slug: node-js-20
+    instance_count: 1
+    instance_size_slug: basic-xxs
+    http_port: 3000
+    routes:
+      - path: /
+    envs:
+      - key: NODE_ENV
+        value: production
+      - key: PAYLOAD_SECRET
+        value: ${PAYLOAD_SECRET}
+        type: SECRET
+      - key: DATABASE_URI
+        value: ${DATABASE_URI}
+        type: SECRET
+      - key: NEXT_PUBLIC_SERVER_URL
+        value: ${NEXT_PUBLIC_SERVER_URL}
+    build_command: ./build-static.sh
