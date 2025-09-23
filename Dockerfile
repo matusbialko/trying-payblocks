@@ -1,24 +1,44 @@
-FROM node:18.8-alpine as base
+FROM node:20.9-alpine as base
+
+# Install pnpm
+RUN corepack enable && corepack prepare pnpm@latest --activate
 
 FROM base as builder
 
 WORKDIR /home/node/app
-COPY package*.json ./
 
+# Copy package files
+COPY package.json pnpm-lock.yaml ./
+
+# Install dependencies
+RUN pnpm install --frozen-lockfile
+
+# Copy source code
 COPY . .
-RUN yarn install
-RUN yarn build
+
+# Generate types and build
+RUN pnpm generate:types
+RUN pnpm build
 
 FROM base as runtime
 
 ENV NODE_ENV=production
 
 WORKDIR /home/node/app
-COPY package*.json  ./
-COPY yarn.lock ./
 
-RUN yarn install --production
+# Copy package files
+COPY package.json pnpm-lock.yaml ./
+
+# Install production dependencies only
+RUN pnpm install --frozen-lockfile --prod
+
+# Copy built application
+COPY --from=builder /home/node/app/.next ./.next
+COPY --from=builder /home/node/app/public ./public
+COPY --from=builder /home/node/app/src ./src
+COPY --from=builder /home/node/app/next.config.ts ./
+COPY --from=builder /home/node/app/tsconfig.json ./
 
 EXPOSE 3000
 
-CMD ["node", "dist/server.js"]
+CMD ["pnpm", "start"]
