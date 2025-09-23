@@ -17,8 +17,10 @@ services:
     value: production
   - key: PAYLOAD_SECRET
     value: ${PAYLOAD_SECRET}
+    type: SECRET
   - key: DATABASE_URI
     value: ${DATABASE_URI}
+    type: SECRET
   - key: NEXT_PUBLIC_SERVER_URL
     value: ${NEXT_PUBLIC_SERVER_URL}
   build_command: |
@@ -26,4 +28,4 @@ services:
     corepack prepare pnpm@latest --activate
     pnpm install --frozen-lockfile
     pnpm generate:types
-    pnpm build
+    PAYLOAD_SECRET=${PAYLOAD_SECRET} pnpm build
