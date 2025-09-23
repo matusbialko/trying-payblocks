@@ -7,24 +7,23 @@ corepack prepare pnpm@latest --activate
 # Install dependencies
 pnpm install --frozen-lockfile
 
-# Set environment variables for build (without database connection)
+# Set environment variables for build (completely skip database)
 export PAYLOAD_SECRET=${PAYLOAD_SECRET:-"build-time-secret-key-32-chars-long"}
-export DATABASE_URI=${DATABASE_URI:-"mongodb://127.0.0.1:27017/payload-template-website"}
 export NEXT_PUBLIC_SERVER_URL=${NEXT_PUBLIC_SERVER_URL:-"http://localhost:3000"}
 export EMAIL_FROM_ADDRESS=${EMAIL_FROM_ADDRESS:-"noreply@example.com"}
 export RESEND_API_KEY=${RESEND_API_KEY:-""}
 
-# Skip database connection during build
+# Completely skip database connection during build
 export NODE_ENV=production
 export SKIP_DATABASE_CONNECTION=true
 
 # Debug: Show environment variables
 echo "PAYLOAD_SECRET is set: ${PAYLOAD_SECRET:+YES}"
 echo "NEXT_PUBLIC_SERVER_URL: $NEXT_PUBLIC_SERVER_URL"
+echo "SKIP_DATABASE_CONNECTION: $SKIP_DATABASE_CONNECTION"
 
-# Generate types (skip if database is not available)
-echo "Generating types..."
-pnpm generate:types || echo "Type generation failed, continuing with build..."
+# Skip type generation (requires database connection)
+echo "Skipping type generation (requires database connection)..."
 
 # Build the application
 echo "Building application..."

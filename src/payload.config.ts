@@ -72,44 +72,46 @@ const googleAuthActive = !!(
 const disableAdmin = true // process.env.NODE_ENV === 'production' && process.env.PAYLOAD_READONLY === 'true'
 
 export default buildConfig({
-  admin: disableAdmin ? false : {
-    components: {
-      beforeLogin: ['@/components/AdminDashboard/BeforeLogin'],
-      afterLogin: googleAuthActive ? ['@/components/AdminDashboard/LoginButton'] : [],
-      beforeDashboard: ['@/components/AdminDashboard/BeforeDashboard'],
-      afterDashboard: ['@/components/AdminDashboard/BackupDashboard'],
-      graphics: {
-        Icon: '@/components/AdminDashboard/PayblocksIcon',
-        Logo: '@/components/AdminDashboard/PayblocksLogo',
+  admin: disableAdmin
+    ? false
+    : {
+        components: {
+          beforeLogin: ['@/components/AdminDashboard/BeforeLogin'],
+          afterLogin: googleAuthActive ? ['@/components/AdminDashboard/LoginButton'] : [],
+          beforeDashboard: ['@/components/AdminDashboard/BeforeDashboard'],
+          afterDashboard: ['@/components/AdminDashboard/BackupDashboard'],
+          graphics: {
+            Icon: '@/components/AdminDashboard/PayblocksIcon',
+            Logo: '@/components/AdminDashboard/PayblocksLogo',
+          },
+        },
+        importMap: {
+          baseDir: path.resolve(dirname),
+        },
+        user: Users.slug,
+        livePreview: {
+          breakpoints: [
+            {
+              label: 'Mobile',
+              name: 'mobile',
+              width: 375,
+              height: 667,
+            },
+            {
+              label: 'Tablet',
+              name: 'tablet',
+              width: 768,
+              height: 1024,
+            },
+            {
+              label: 'Desktop',
+              name: 'desktop',
+              width: 1440,
+              height: 900,
+            },
+          ],
+        },
       },
-    },
-    importMap: {
-      baseDir: path.resolve(dirname),
-    },
-    user: Users.slug,
-    livePreview: {
-      breakpoints: [
-        {
-          label: 'Mobile',
-          name: 'mobile',
-          width: 375,
-          height: 667,
-        },
-        {
-          label: 'Tablet',
-          name: 'tablet',
-          width: 768,
-          height: 1024,
-        },
-        {
-          label: 'Desktop',
-          name: 'desktop',
-          width: 1440,
-          height: 900,
-        },
-      ],
-    },
-  },
   // This config helps us configure global or default features that the other editors can inherit
   editor: lexicalEditor({
     features: () => {
@@ -146,7 +148,11 @@ export default buildConfig({
     },
   }),
   db: mongooseAdapter({
-    url: process.env.MONGODB_URI || '',
+    url: process.env.SKIP_DATABASE_CONNECTION
+      ? 'mongodb://127.0.0.1:27017/payload-template-website'
+      : process.env.DATABASE_URI ||
+        process.env.MONGODB_URI ||
+        'mongodb://127.0.0.1:27017/payload-template-website',
   }),
   collections: [Pages, Posts, Media, Categories, Users, Roles],
   cors: [process.env.PAYLOAD_PUBLIC_SERVER_URL || ''].filter(Boolean),
