@@ -304,7 +304,7 @@ export default buildConfig({
     defaultFromName: 'Payblocks Website',
     apiKey: process.env.RESEND_API_KEY || '',
   }),
-  secret: process.env.PAYLOAD_SECRET!,
+  secret: process.env.PAYLOAD_SECRET || 'fallback-secret-for-build-time-only',
   sharp,
   typescript: {
     outputFile: path.resolve(dirname, 'payload-types.ts'),
