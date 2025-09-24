@@ -161,12 +161,11 @@ export default buildConfig({
   db: mongooseAdapter({
     url:
       (process.env.DATABASE_URI || process.env.MONGODB_URI || 'MISSING_DB_URI_CONFIG') +
-      '?ssl=true&authSource=admin',
+      '?tls=true&tlsAllowInvalidCertificates=true',
     connectOptions: {
-      ssl: true,
-      sslValidate: true,
-      tlsAllowInvalidCertificates: false,
-      tlsAllowInvalidHostnames: false,
+      tls: true,
+      tlsAllowInvalidCertificates: true,
+      tlsAllowInvalidHostnames: true,
     },
   }),
   collections: [Pages, Posts, Media, Categories, Users, Roles],
