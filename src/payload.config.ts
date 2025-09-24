@@ -70,6 +70,7 @@ const googleAuthActive = false /* !!(
 ) */
 
 const disableAdmin = process.env.APP_ENV === 'production' && process.env.PAYLOAD_READONLY === 'true'
+console.log('disableAdmin', disableAdmin)
 
 export default buildConfig({
   admin: disableAdmin
@@ -151,8 +152,16 @@ export default buildConfig({
     url: process.env.DATABASE_URI || process.env.MONGODB_URI || 'MISSING_DB_URI_CONFIG',
   }),
   collections: [Pages, Posts, Media, Categories, Users, Roles],
-  cors: [process.env.PAYLOAD_PUBLIC_SERVER_URL || ''].filter(Boolean),
-  csrf: [process.env.PAYLOAD_PUBLIC_SERVER_URL || ''].filter(Boolean),
+  cors: [
+    process.env.PAYLOAD_PUBLIC_SERVER_URL || '',
+    'https://trying-payblocks-ces45.ondigitalocean.app',
+    'https://test-payload-cms.site',
+  ].filter(Boolean),
+  csrf: [
+    process.env.PAYLOAD_PUBLIC_SERVER_URL || '',
+    'https://trying-payblocks-ces45.ondigitalocean.app',
+    'https://test-payload-cms.site',
+  ].filter(Boolean),
   globals: [ThemeConfig, Header, Footer, PageConfig],
   plugins: [
     redirectsPlugin({
