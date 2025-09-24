@@ -59,8 +59,8 @@ ENV NEXT_PUBLIC_SERVER_URL=${NEXT_PUBLIC_SERVER_URL}
 # Copy package files
 COPY package.json pnpm-lock.yaml ./
 
-# Install production dependencies only
-RUN pnpm install --frozen-lockfile --prod
+# Install all dependencies (including devDependencies for next.config.ts)
+RUN pnpm install --frozen-lockfile
 
 # Copy built application
 COPY --from=builder /home/node/app/.next ./.next
