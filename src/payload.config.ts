@@ -69,6 +69,16 @@ const googleAuthActive = !!(
   process.env.GOOGLE_LOGIN_CLIENT_ID && process.env.GOOGLE_LOGIN_CLIENT_SECRET
 )
 
+console.log('DATABASE_URI', process.env.DATABASE_URI)
+console.log('SKIP_DATABASE_CONNECTION', process.env.SKIP_DATABASE_CONNECTION)
+console.log('NODE_ENV', process.env.NODE_ENV)
+console.log('PAYLOAD_SECRET', process.env.PAYLOAD_SECRET)
+console.log('NEXT_PUBLIC_SERVER_URL', process.env.NEXT_PUBLIC_SERVER_URL)
+console.log('EMAIL_FROM_ADDRESS', process.env.EMAIL_FROM_ADDRESS)
+console.log('RESEND_API_KEY', process.env.RESEND_API_KEY)
+console.log('GOOGLE_LOGIN_CLIENT_ID', process.env.GOOGLE_LOGIN_CLIENT_ID)
+console.log('GOOGLE_LOGIN_CLIENT_SECRET', process.env.GOOGLE_LOGIN_CLIENT_SECRET)
+
 const disableAdmin = true // process.env.NODE_ENV === 'production' && process.env.PAYLOAD_READONLY === 'true'
 
 export default buildConfig({
