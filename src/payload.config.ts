@@ -50,6 +50,11 @@ import { isAdminHidden } from './access/isAdmin'
 import { hasPermission } from './utilities/checkPermission'
 import { PageConfig } from './globals/PageConfig/config'
 
+console.log('')
+console.log('CHECK 1')
+console.log('DATABASE_URI', process.env.DATABASE_URI)
+console.log('MONGODB_URI', process.env.MONGODB_URI)
+
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
 
@@ -65,17 +70,15 @@ const generateURL: GenerateURL<Post | Page> = ({ doc }) => {
 /**
  * Only show the google login button if the client id and secret are set
  */
-/* const googleAuthActive = !!(
-  process.env.GOOGLE_LOGIN_CLIENT_ID && process.env.GOOGLE_LOGIN_CLIENT_SECRET
+const googleAuthActive = false /* !!(
+  //process.env.GOOGLE_LOGIN_CLIENT_ID && process.env.GOOGLE_LOGIN_CLIENT_SECRET
 ) */
 
+console.log('')
+console.log('CHECK 2')
 console.log('DATABASE_URI', process.env.DATABASE_URI)
-console.log('SKIP_DATABASE_CONNECTION', process.env.SKIP_DATABASE_CONNECTION)
-console.log('NODE_ENV', process.env.NODE_ENV)
-console.log('PAYLOAD_SECRET', process.env.PAYLOAD_SECRET)
-console.log('NEXT_PUBLIC_SERVER_URL', process.env.NEXT_PUBLIC_SERVER_URL)
-console.log('EMAIL_FROM_ADDRESS', process.env.EMAIL_FROM_ADDRESS)
-console.log('RESEND_API_KEY', process.env.RESEND_API_KEY)
+console.log('MONGODB_URI', process.env.MONGODB_URI)
+console.log('--------------------------------')
 
 const disableAdmin = true // process.env.NODE_ENV === 'production' && process.env.PAYLOAD_READONLY === 'true'
 
