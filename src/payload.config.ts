@@ -148,11 +148,7 @@ export default buildConfig({
     },
   }),
   db: mongooseAdapter({
-    url: process.env.SKIP_DATABASE_CONNECTION
-      ? 'mongodb://127.0.0.1:27017/payload-template-website'
-      : process.env.DATABASE_URI ||
-        process.env.MONGODB_URI ||
-        'mongodb://127.0.0.1:27017/payload-template-website',
+    url: process.env.DATABASE_URI || process.env.MONGODB_URI || 'MISSING_DB_URI_CONFIG',
   }),
   collections: [Pages, Posts, Media, Categories, Users, Roles],
   cors: [process.env.PAYLOAD_PUBLIC_SERVER_URL || ''].filter(Boolean),
