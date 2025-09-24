@@ -7,6 +7,18 @@ FROM base as builder
 
 WORKDIR /home/node/app
 
+# Accept build arguments
+ARG PAYLOAD_SECRET
+ARG DATABASE_URI
+ARG MONGODB_URI
+ARG NEXT_PUBLIC_SERVER_URL
+
+# Set environment variables from build arguments
+ENV PAYLOAD_SECRET=$PAYLOAD_SECRET
+ENV DATABASE_URI=$DATABASE_URI
+ENV MONGODB_URI=$MONGODB_URI
+ENV NEXT_PUBLIC_SERVER_URL=$NEXT_PUBLIC_SERVER_URL
+
 # Copy package files
 COPY package.json pnpm-lock.yaml ./
 
@@ -15,6 +27,15 @@ RUN pnpm install --frozen-lockfile
 
 # Copy source code
 COPY . .
+
+# Debug environment variables
+RUN echo "=== Docker Build Environment Debug ===" && \
+    echo "NODE_ENV: $NODE_ENV" && \
+    echo "PAYLOAD_SECRET is set: ${PAYLOAD_SECRET:+YES}" && \
+    echo "DATABASE_URI: $DATABASE_URI" && \
+    echo "MONGODB_URI: $MONGODB_URI" && \
+    echo "NEXT_PUBLIC_SERVER_URL: $NEXT_PUBLIC_SERVER_URL" && \
+    echo "======================================"
 
 # Generate types (now that we have real environment variables)
 RUN echo "Generating types with real environment variables..."

@@ -34,3 +34,8 @@ services:
         scope: RUN_AND_BUILD_TIME
 
     dockerfile_path: Dockerfile
+    build_args:
+      - PAYLOAD_SECRET=${PAYLOAD_SECRET}
+      - DATABASE_URI=${DATABASE_URI}
+      - MONGODB_URI=${MONGODB_URI}
+      - NEXT_PUBLIC_SERVER_URL=${NEXT_PUBLIC_SERVER_URL}
