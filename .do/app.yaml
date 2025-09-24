@@ -17,14 +17,11 @@ services:
       - key: NODE_ENV
         value: production
       - key: PAYLOAD_SECRET
-        value: ${PAYLOAD_SECRET}
-        type: SECRET
+        scope: RUN_AND_BUILD_TIME
       - key: DATABASE_URI
-        value: ${DATABASE_URI}
-        type: SECRET
+        scope: RUN_AND_BUILD_TIME
       - key: MONGODB_URI
-        value: ${MONGODB_URI}
-        type: SECRET
+        scope: RUN_AND_BUILD_TIME
       - key: NEXT_PUBLIC_SERVER_URL
         value: ${NEXT_PUBLIC_SERVER_URL}
 
