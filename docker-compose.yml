@@ -1,6 +1,7 @@
 version: '3'
 
 services:
+  # Development service
   payload:
     image: node:18-alpine
     ports:
@@ -9,11 +10,31 @@ services:
       - .:/home/node/app
       - node_modules:/home/node/app/node_modules
     working_dir: /home/node/app/
-    command: sh -c "yarn install && yarn dev"
+    command: sh -c "echo '=== Environment Variables Debug ===' && env | grep -E '(PAYLOAD_SECRET|DATABASE_URI|MONGODB_URI|NEXT_PUBLIC_SERVER_URL)' && echo '================================' && yarn install && yarn dev"
     depends_on:
       - mongo
     env_file:
       - .env
+    environment:
+      - NODE_ENV=development
+      - PAYLOAD_SECRET=${PAYLOAD_SECRET:-build-time-secret-key-32-chars-long}
+      - DATABASE_URI=${DATABASE_URI:-mongodb://mongo:27017/payload-template-website}
+      - MONGODB_URI=${MONGODB_URI:-mongodb://mongo:27017/payload-template-website}
+      - NEXT_PUBLIC_SERVER_URL=${NEXT_PUBLIC_SERVER_URL:-http://localhost:3000}
+
+  # Production service (for DigitalOcean App Platform)
+  payload-prod:
+    build: .
+    ports:
+      - '3000:3000'
+    environment:
+      - NODE_ENV=production
+      - PAYLOAD_SECRET=${PAYLOAD_SECRET}
+      - DATABASE_URI=${DATABASE_URI}
+      - MONGODB_URI=${MONGODB_URI}
+      - NEXT_PUBLIC_SERVER_URL=${NEXT_PUBLIC_SERVER_URL}
+    command: sh -c "echo '=== Production Environment Variables Debug ===' && env | grep -E '(PAYLOAD_SECRET|DATABASE_URI|MONGODB_URI|NEXT_PUBLIC_SERVER_URL)' && echo '=============================================' && pnpm start"
+    restart: unless-stopped
 
   mongo:
     image: mongo:latest
