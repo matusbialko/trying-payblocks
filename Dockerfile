@@ -16,8 +16,25 @@ RUN pnpm install --frozen-lockfile
 # Copy source code
 COPY . .
 
-# Generate types and build
-RUN pnpm generate:types
+# Set build-time environment variables
+ENV SKIP_DATABASE_CONNECTION=true
+ENV PAYLOAD_SECRET=build-time-secret-key-32-chars-long
+ENV DATABASE_URI=mongodb://127.0.0.1:27017/payload-template-website
+ENV NEXT_PUBLIC_SERVER_URL=http://localhost:3000
+
+# Debug environment variables
+RUN echo "=== Docker Build Environment Debug ===" && \
+    echo "NODE_ENV: $NODE_ENV" && \
+    echo "SKIP_DATABASE_CONNECTION: $SKIP_DATABASE_CONNECTION" && \
+    echo "PAYLOAD_SECRET is set: ${PAYLOAD_SECRET:+YES}" && \
+    echo "DATABASE_URI: $DATABASE_URI" && \
+    echo "NEXT_PUBLIC_SERVER_URL: $NEXT_PUBLIC_SERVER_URL" && \
+    echo "======================================"
+
+# Skip type generation (requires database connection)
+RUN echo "Skipping type generation (requires database connection)..."
+
+# Build the application
 RUN pnpm build
 
 FROM base as runtime
