@@ -28,9 +28,6 @@ import path from 'path'
 import { buildConfig, PayloadRequest } from 'payload'
 import { fileURLToPath } from 'url'
 
-// Fix TLS/SSL issues with MongoDB Atlas
-process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0'
-
 import Categories from './collections/Categories'
 import { Media } from './collections/Media'
 import { Pages } from './collections/Pages'
@@ -53,11 +50,6 @@ import { isAdminHidden } from './access/isAdmin'
 import { hasPermission } from './utilities/checkPermission'
 import { PageConfig } from './globals/PageConfig/config'
 
-console.log('')
-console.log('CHECK 1')
-console.log('DATABASE_URI', process.env.DATABASE_URI)
-console.log('MONGODB_URI', process.env.MONGODB_URI)
-
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
 
@@ -76,12 +68,6 @@ const generateURL: GenerateURL<Post | Page> = ({ doc }) => {
 const googleAuthActive = false /* !!(
   //process.env.GOOGLE_LOGIN_CLIENT_ID && process.env.GOOGLE_LOGIN_CLIENT_SECRET
 ) */
-
-console.log('')
-console.log('CHECK 2')
-console.log('DATABASE_URI', process.env.DATABASE_URI)
-console.log('MONGODB_URI', process.env.MONGODB_URI)
-console.log('--------------------------------')
 
 const disableAdmin = true // process.env.NODE_ENV === 'production' && process.env.PAYLOAD_READONLY === 'true'
 
@@ -162,9 +148,7 @@ export default buildConfig({
     },
   }),
   db: mongooseAdapter({
-    url:
-      (process.env.DATABASE_URI || process.env.MONGODB_URI || 'MISSING_DB_URI_CONFIG') +
-      '?retryWrites=true&w=majority&tls=true&tlsAllowInvalidCertificates=true&tlsAllowInvalidHostnames=true',
+    url: process.env.DATABASE_URI || process.env.MONGODB_URI || 'MISSING_DB_URI_CONFIG',
   }),
   collections: [Pages, Posts, Media, Categories, Users, Roles],
   cors: [process.env.PAYLOAD_PUBLIC_SERVER_URL || ''].filter(Boolean),

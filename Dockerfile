@@ -28,17 +28,8 @@ RUN pnpm install --frozen-lockfile
 # Copy source code
 COPY . .
 
-# Debug environment variables
-RUN echo "=== Docker Build Environment Debug ===" && \
-    echo "NODE_ENV: $NODE_ENV" && \
-    echo "PAYLOAD_SECRET is set: ${PAYLOAD_SECRET:+YES}" && \
-    echo "DATABASE_URI: $DATABASE_URI" && \
-    echo "MONGODB_URI: $MONGODB_URI" && \
-    echo "NEXT_PUBLIC_SERVER_URL: $NEXT_PUBLIC_SERVER_URL" && \
-    echo "======================================"
 
-# Generate types (now that we have real environment variables)
-RUN echo "Generating types with real environment variables..."
+# Generate types
 RUN pnpm generate:types
 
 # Build the application
@@ -69,14 +60,6 @@ COPY --from=builder /home/node/app/src ./src
 COPY --from=builder /home/node/app/next.config.ts ./
 COPY --from=builder /home/node/app/tsconfig.json ./
 
-# Debug runtime environment variables
-RUN echo "=== Runtime Environment Variables Debug ===" && \
-    echo "NODE_ENV: $NODE_ENV" && \
-    echo "PAYLOAD_SECRET is set: ${PAYLOAD_SECRET:+YES}" && \
-    echo "DATABASE_URI: $DATABASE_URI" && \
-    echo "MONGODB_URI: $MONGODB_URI" && \
-    echo "NEXT_PUBLIC_SERVER_URL: $NEXT_PUBLIC_SERVER_URL" && \
-    echo "============================================="
 
 EXPOSE 3000
 
