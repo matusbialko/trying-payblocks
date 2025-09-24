@@ -28,6 +28,9 @@ import path from 'path'
 import { buildConfig, PayloadRequest } from 'payload'
 import { fileURLToPath } from 'url'
 
+// Fix TLS/SSL issues with MongoDB Atlas
+process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0'
+
 import Categories from './collections/Categories'
 import { Media } from './collections/Media'
 import { Pages } from './collections/Pages'
@@ -161,12 +164,7 @@ export default buildConfig({
   db: mongooseAdapter({
     url:
       (process.env.DATABASE_URI || process.env.MONGODB_URI || 'MISSING_DB_URI_CONFIG') +
-      '?tls=true&tlsAllowInvalidCertificates=true',
-    connectOptions: {
-      tls: true,
-      tlsAllowInvalidCertificates: true,
-      tlsAllowInvalidHostnames: true,
-    },
+      '?retryWrites=true&w=majority&tls=true&tlsAllowInvalidCertificates=true&tlsAllowInvalidHostnames=true',
   }),
   collections: [Pages, Posts, Media, Categories, Users, Roles],
   cors: [process.env.PAYLOAD_PUBLIC_SERVER_URL || ''].filter(Boolean),
