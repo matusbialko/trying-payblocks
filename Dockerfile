@@ -16,23 +16,24 @@ RUN pnpm install --frozen-lockfile
 # Copy source code
 COPY . .
 
-# Set build-time environment variables
-ENV SKIP_DATABASE_CONNECTION=true
-ENV PAYLOAD_SECRET=build-time-secret-key-32-chars-long
-ENV DATABASE_URI=mongodb://127.0.0.1:27017/payload-template-website
-ENV NEXT_PUBLIC_SERVER_URL=http://localhost:3000
+# Set build-time environment variables (use DigitalOcean env vars if available)
+ENV PAYLOAD_SECRET=${PAYLOAD_SECRET:-build-time-secret-key-32-chars-long}
+ENV DATABASE_URI=${DATABASE_URI:-mongodb://127.0.0.1:27017/payload-template-website}
+ENV MONGODB_URI=${MONGODB_URI:-mongodb://127.0.0.1:27017/payload-template-website}
+ENV NEXT_PUBLIC_SERVER_URL=${NEXT_PUBLIC_SERVER_URL:-http://localhost:3000}
 
 # Debug environment variables
-RUN echo "=== Docker Build Environment Debug ===" && \
-    echo "NODE_ENV: $NODE_ENV" && \
-    echo "SKIP_DATABASE_CONNECTION: $SKIP_DATABASE_CONNECTION" && \
-    echo "PAYLOAD_SECRET is set: ${PAYLOAD_SECRET:+YES}" && \
-    echo "DATABASE_URI: $DATABASE_URI" && \
-    echo "NEXT_PUBLIC_SERVER_URL: $NEXT_PUBLIC_SERVER_URL" && \
-    echo "======================================"
+RUN echo "=== Docker Build Environment Debug ==="
+RUN echo "NODE_ENV: $NODE_ENV"
+RUN echo "PAYLOAD_SECRET is set: ${PAYLOAD_SECRET:+YES}"
+RUN echo "DATABASE_URI: $DATABASE_URI"
+RUN echo "MONGODB_URI: $MONGODB_URI"
+RUN echo "NEXT_PUBLIC_SERVER_URL: $NEXT_PUBLIC_SERVER_URL"
+RUN echo "======================================"
 
-# Skip type generation (requires database connection)
-RUN echo "Skipping type generation (requires database connection)..."
+# Generate types (now that we have real environment variables)
+RUN echo "Generating types with real environment variables..."
+RUN pnpm generate:types
 
 # Build the application
 RUN pnpm build

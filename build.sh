@@ -28,13 +28,11 @@ echo "Setting build-time environment variables..."
 export PAYLOAD_SECRET=${PAYLOAD_SECRET:-"build-time-secret-key-32-chars-long"}
 export DATABASE_URI=${DATABASE_URI:-"MISSING_DB_URI_BUILD"}
 export NEXT_PUBLIC_SERVER_URL=${NEXT_PUBLIC_SERVER_URL:-"http://localhost:3000"}
-export SKIP_DATABASE_CONNECTION=true
 
 echo "=== FINAL ENVIRONMENT VARIABLES ==="
 echo "PAYLOAD_SECRET: ${PAYLOAD_SECRET:0:20}..."
 echo "DATABASE_URI: $DATABASE_URI"
 echo "NEXT_PUBLIC_SERVER_URL: $NEXT_PUBLIC_SERVER_URL"
-echo "SKIP_DATABASE_CONNECTION: $SKIP_DATABASE_CONNECTION"
 echo "=================================="
 
 # Build the application
