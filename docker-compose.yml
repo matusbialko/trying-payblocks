@@ -16,7 +16,7 @@ services:
     env_file:
       - .env
     environment:
-      - NODE_ENV=development
+      - APP_ENV=development
       - PAYLOAD_SECRET=${PAYLOAD_SECRET:-build-time-secret-key-32-chars-long}
       - DATABASE_URI=${DATABASE_URI:-mongodb://mongo:27017/payload-template-website}
       - MONGODB_URI=${MONGODB_URI:-mongodb://mongo:27017/payload-template-website}
@@ -28,7 +28,7 @@ services:
     ports:
       - '3000:3000'
     environment:
-      - NODE_ENV=production
+      - APP_ENV=production
       - PAYLOAD_SECRET=${PAYLOAD_SECRET}
       - DATABASE_URI=${DATABASE_URI}
       - MONGODB_URI=${MONGODB_URI}

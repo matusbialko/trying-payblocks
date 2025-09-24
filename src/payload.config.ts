@@ -69,7 +69,7 @@ const googleAuthActive = false /* !!(
   //process.env.GOOGLE_LOGIN_CLIENT_ID && process.env.GOOGLE_LOGIN_CLIENT_SECRET
 ) */
 
-const disableAdmin = true // process.env.NODE_ENV === 'production' && process.env.PAYLOAD_READONLY === 'true'
+const disableAdmin = true // process.env.APP_ENV === 'production' && process.env.PAYLOAD_READONLY === 'true'
 
 export default buildConfig({
   admin: disableAdmin

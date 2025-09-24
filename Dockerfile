@@ -37,7 +37,7 @@ RUN pnpm build
 
 FROM base as runtime
 
-ENV NODE_ENV=production
+ENV APP_ENV=production
 
 WORKDIR /home/node/app
 

@@ -19,12 +19,12 @@ export const serverConfig = {
   /**
    * Returns true if the application is running in development mode
    */
-  isDevelopment: process.env.NODE_ENV === 'development',
+  isDevelopment: process.env.APP_ENV === 'development',
 
   /**
    * Returns true if the application is running in production mode
    */
-  isProduction: process.env.NODE_ENV === 'production',
+  isProduction: process.env.APP_ENV === 'production',
 
   /**
    * Returns true if the application is running on Vercel
