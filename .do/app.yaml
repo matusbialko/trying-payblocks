@@ -33,4 +33,4 @@ services:
         value: ${NEXT_PUBLIC_SERVER_URL}
         scope: RUN_AND_BUILD_TIME
 
-    build_command: ./build.sh
+    dockerfile_path: Dockerfile
