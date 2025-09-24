@@ -4,14 +4,30 @@ name: payblocks
 envs:
   - key: NODE_ENV
     value: production
+    scope: RUN_AND_BUILD_TIME
   - key: PAYLOAD_SECRET
     value: ${PAYLOAD_SECRET}
     type: SECRET
+    scope: RUN_AND_BUILD_TIME
   - key: DATABASE_URI
     value: ${DATABASE_URI}
     type: SECRET
+    scope: RUN_AND_BUILD_TIME
   - key: NEXT_PUBLIC_SERVER_URL
     value: ${NEXT_PUBLIC_SERVER_URL}
+    scope: RUN_AND_BUILD_TIME
+  - key: process.env.PAYLOAD_SECRET
+    value: ${PAYLOAD_SECRET}
+    type: SECRET
+    scope: RUN_AND_BUILD_TIME
+  - key: process.env.DATABASE_URI
+    value: ${DATABASE_URI}
+    type: SECRET
+    scope: RUN_AND_BUILD_TIME
+  - key: process.env.MONGODB_URI
+    value: ${MONGODB_URI}
+    type: SECRET
+    scope: RUN_AND_BUILD_TIME
 
 services:
   - name: web
@@ -29,12 +45,29 @@ services:
     envs:
       - key: NODE_ENV
         value: production
+        scope: RUN_AND_BUILD_TIME
       - key: PAYLOAD_SECRET
         value: ${PAYLOAD_SECRET}
         type: SECRET
+        scope: RUN_AND_BUILD_TIME
       - key: DATABASE_URI
         value: ${DATABASE_URI}
         type: SECRET
+        scope: RUN_AND_BUILD_TIME
       - key: NEXT_PUBLIC_SERVER_URL
         value: ${NEXT_PUBLIC_SERVER_URL}
+        scope: RUN_AND_BUILD_TIME
+      - key: process.env.PAYLOAD_SECRET
+        value: ${PAYLOAD_SECRET}
+        type: SECRET
+        scope: RUN_AND_BUILD_TIME
+      - key: process.env.DATABASE_URI
+        value: ${DATABASE_URI}
+        type: SECRET
+        scope: RUN_AND_BUILD_TIME
+      - key: process.env.MONGODB_URI
+        value: ${MONGODB_URI}
+        type: SECRET
+        scope: RUN_AND_BUILD_TIME
+
     build_command: ./build.sh
