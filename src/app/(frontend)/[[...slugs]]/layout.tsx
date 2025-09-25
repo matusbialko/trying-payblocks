@@ -51,6 +51,9 @@ export default async function RootLayout({
   const slugData = resolveSlugs(slugs || [])
   const { isEnabled } = await draftMode()
 
+  // Check if admin is disabled via environment variable
+  const isAdminDisabled = process.env.APP_ENV === 'production' && process.env.PAYLOAD_READONLY === 'true'
+
   const publicContext: PublicContextProps = {
     ...slugData,
   }
@@ -75,11 +78,11 @@ export default async function RootLayout({
       </head>
       <body>
         <Providers>
-          <AdminBar
+          {!isAdminDisabled && <AdminBar
             adminBarProps={{
               preview: isEnabled,
             }}
-          />
+          />}
           <LivePreviewListener />
           <Analytics />
           <Header publicContext={publicContext} />
