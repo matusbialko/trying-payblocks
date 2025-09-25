@@ -70,12 +70,6 @@ const googleAuthActive = false /* !!(
 ) */
 
 const disableAdmin = process.env.APP_ENV === 'production' && process.env.PAYLOAD_READONLY === 'true'
-console.log('')
-console.log('--------------------------------')
-console.log('APP_ENV', process.env.APP_ENV), process.env.APP_ENV === 'production'
-console.log('PAYLOAD_READONLY', process.env.PAYLOAD_READONLY, process.env.PAYLOAD_READONLY === 'true')
-console.log('DISABLE ADMIN', disableAdmin)
-console.log('--------------------------------')
 
 export default buildConfig({
   admin: disableAdmin
